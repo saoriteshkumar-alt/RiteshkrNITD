@@ -29,7 +29,7 @@
     }
 
     html, body {
-      height: 100%;
+      min-height: 100%;
       background: var(--bg);
       color: var(--text);
       font-family: 'Times New Roman', Times, serif;
@@ -45,6 +45,8 @@
       display: flex;
       align-items: baseline;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
     }
     .page-header .institution {
       font-size: 13px;
@@ -58,10 +60,11 @@
       color: var(--text-muted);
       font-style: italic;
     }
-    /* Total Global Wallet Tracker */
+
+    /* Global Wallet Tracker */
     .global-tracker {
-      background: #eef4fb;
-      border-bottom: 1px solid #2a5fa5;
+      background: var(--info-bg);
+      border-bottom: 1px solid var(--info-border);
       padding: 8px 40px;
       text-align: right;
       font-size: 13px;
@@ -113,6 +116,7 @@
       font-style: italic;
       color: var(--text-muted);
       cursor: default;
+      transition: background 0.2s, color 0.2s;
     }
     .pip.active {
       background: var(--accent);
@@ -232,7 +236,7 @@
     .callout.warn    .callout-head { color: #7a5c00; }
     .callout.danger  .callout-head { color: var(--danger-border); }
 
-    /* ── Exponential Growth Table ──────────────────── */
+    /* ── Exponential Growth Table ──────────────────────────────────────── */
     .growth-table {
       width: 100%;
       border-collapse: collapse;
@@ -362,7 +366,7 @@
       cursor: pointer;
       transition: opacity 0.15s;
     }
-    .btn-next:hover { opacity: 0.82; }
+    .btn-next:hover:not(:disabled) { opacity: 0.82; }
     .btn-next:disabled { opacity: 0.35; cursor: not-allowed; }
 
     .instructions-block {
@@ -395,14 +399,162 @@
       margin-top: 6px;
     }
 
+    /* ── Researcher Card ──────────────────────────────────────────────── */
+    .researcher-card {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+      text-align: left;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .researcher-card-inner {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .researcher-avatar {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid var(--border-dark);
+      background: var(--bg);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: var(--text-muted);
+    }
+    .researcher-info {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+    .researcher-info strong {
+      color: var(--text);
+      font-size: 16px;
+    }
+    .researcher-info a {
+      color: var(--info-border);
+      text-decoration: none;
+    }
+    .researcher-info a:hover { text-decoration: underline; }
+
+    /* ── Stage 0 Welcome ──────────────────────────────────────────────── */
+    .welcome-wrap {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .welcome-wrap .stage-title {
+      border: none;
+      margin-bottom: 10px;
+    }
+    .welcome-intro {
+      text-align: left;
+      max-width: 650px;
+      margin: 0 auto 30px;
+      font-size: 15px;
+      border-left: 4px solid var(--info-border);
+    }
+    .welcome-intro p { margin-bottom: 15px; }
+    .welcome-intro p:last-child { margin-bottom: 0; }
+
+    /* ── Results Screen ───────────────────────────────────────────────── */
+    .result-score-wrap {
+      text-align: center;
+      padding: 40px 0;
+    }
+    .result-score-big {
+      font-size: 72px;
+      font-weight: bold;
+      color: var(--accent);
+      margin: 20px 0;
+      line-height: 1;
+    }
+    .result-score-big span {
+      font-size: 32px;
+      color: var(--text-muted);
+    }
+    .result-thanks {
+      border: none;
+      max-width: 500px;
+      margin: 0 auto 40px;
+      padding: 0;
+    }
+
+    /* ── Status Messages ──────────────────────────────────────────────── */
+    .status-processing {
+      color: var(--info-border);
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .status-success {
+      color: #2e6e2e;
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+    }
+    .status-error {
+      color: var(--danger-border);
+      font-size: 14px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    /* Spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid var(--info-border);
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+
+    /* ── Score Flash Toast ────────────────────────────────────────────── */
+    .score-toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'Times New Roman', serif;
+      font-style: italic;
+      font-size: 13px;
+      padding: 10px 20px;
+      border: 1px solid #555;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    /* ── Responsive ───────────────────────────────────────────────────── */
     @media (max-width: 600px) {
-      .page-header { padding: 14px 16px; flex-direction: column; gap: 4px; }
-      .progress-rail { padding: 12px 16px; }
-      .content-wrap { margin: 24px auto; padding: 0 16px 60px; }
-      .wallet-banner { flex-direction: column; gap: 10px; align-items: flex-start; }
-      .alloc-row { grid-template-columns: 1fr; }
-      .alloc-cell { border-right: none; border-bottom: 1px solid var(--rule); }
+      .page-header       { padding: 14px 16px; flex-direction: column; gap: 4px; }
+      .global-tracker    { padding: 8px 16px; }
+      .progress-rail     { padding: 12px 16px; gap: 10px; }
+      .stage-pips        { display: none; }
+      .content-wrap      { margin: 24px auto; padding: 0 16px 60px; }
+      .wallet-banner     { flex-direction: column; gap: 10px; align-items: flex-start; }
+      .wallet-remaining  { text-align: left; }
+      .alloc-row         { grid-template-columns: 1fr; }
+      .alloc-cell        { border-right: none; border-bottom: 1px solid var(--rule); }
       .alloc-row.header-row .alloc-cell:not(:first-child) { display: none; }
+      .nav-bar           { flex-direction: column; gap: 12px; align-items: stretch; }
+      .nav-bar .instructions { max-width: 100%; }
+      .btn-next          { text-align: center; }
+      .researcher-card-inner { flex-direction: column; }
     }
   </style>
 </head>
@@ -431,21 +583,21 @@
 <main class="content-wrap">
 
   <!-- ════════════════════════════════════════════════════════════
-       STAGE 0 — INTRODUCTION / INSTRUCTIONS
+       STAGE 0 — INTRODUCTION
   ════════════════════════════════════════════════════════════ -->
   <section class="stage" id="stage-0">
-    <div style="text-align: center; padding: 40px 20px;">
-      <h1 class="stage-title" style="border:none;">Welcome to the Financial Gauntlet</h1>
-      
-      <div class="instructions-block" style="text-align:left; max-width: 650px; margin: 0 auto 30px; font-size: 15px; border-left: 4px solid var(--info-border);">
-        <p style="margin-bottom: 15px;">
+    <div class="welcome-wrap">
+      <h1 class="stage-title">Welcome to the Financial Gauntlet</h1>
+
+      <div class="instructions-block welcome-intro">
+        <p>
           <strong>What You Have To Do:</strong><br>
-          You have been granted a total hypothetical endowment of <strong>₹3,20,000</strong>. Over the next 7 stages, you will navigate real-world financial scenarios including sudden windfalls, portfolio investments, liability management, and discretionary spending. 
+          You have been granted a total hypothetical endowment of <strong>₹3,20,000</strong>. Over the next 7 stages, you will navigate real-world financial scenarios including sudden windfalls, portfolio investments, liability management, and discretionary spending.
           Make decisions exactly as you would with your own real-world capital.
         </p>
         <p>
           <strong>What You Will Get:</strong><br>
-          Upon completion, the system will evaluate your resistance to common cognitive biases and instantly issue your personalised <strong>Financial IQ Evaluation Score (0-100)</strong>. Your anonymous choices will directly contribute to behavioural economics research.
+          Upon completion, the system will evaluate your resistance to common cognitive biases and instantly issue your personalised <strong>Financial IQ Evaluation Score (0–100)</strong>. Your anonymous choices will directly contribute to behavioural economics research.
         </p>
       </div>
 
@@ -479,7 +631,7 @@
       The two fields must sum to exactly ₹50,000. Enter whole rupee amounts only.
     </p>
 
-    <!-- Track 3: Exponential growth note -->
+    <!-- Track 3: Exponential growth note (hidden by default) -->
     <div class="callout info" id="s1-track3-note" style="display:none;">
       <div class="callout-head">&#x2139; Research Note — The Power of Compounding</div>
       A one-time retirement contribution of ₹25,000 invested at an average 12% annual return
@@ -503,7 +655,6 @@
       </table>
     </div>
 
-    <!-- Allocation Grid -->
     <div class="alloc-grid">
       <div class="alloc-row header-row">
         <div class="alloc-cell col-head">Allocation Category</div>
@@ -513,26 +664,20 @@
       <div class="alloc-row">
         <div class="alloc-cell label-cell">
           <span class="asset-name">Cash (Immediate Use)</span>
-          <span class="asset-note">Spending, emergencies, current expenses</span>
-          <span class="asset-badge">Liquid</span>
         </div>
-        <div class="alloc-cell">
-          Withdraw as cash. No return generated. Fully liquid at the moment of allocation.
-        </div>
+        <div class="alloc-cell">Withdraw as cash for current needs.</div>
         <div class="alloc-cell">
           <input type="number" id="s1-cash" min="0" max="50000" placeholder="e.g. 25000" oninput="s1Update()" />
         </div>
       </div>
       <div class="alloc-row">
         <div class="alloc-cell label-cell">
-          <span class="asset-name">Retirement Savings</span>
-          <span class="asset-note">Locked for 30 years; tax-advantaged</span>
-          <span class="asset-badge">Long-Term</span>
+          <span class="asset-name">
+            Retirement Savings
+            <span id="s1-track2-badge" style="display:none; margin-left:8px; font-size:10px; background:#eef4fb; color:#2a5fa5; padding:2px 6px; vertical-align:middle;">(Suggested)</span>
+          </span>
         </div>
-        <div class="alloc-cell">
-          Contributed to a National Pension Scheme (NPS) equivalent. Compounded annually.
-          Withdrawal only at age 60.
-        </div>
+        <div class="alloc-cell">Locked for 30 years. Accrues compounded returns.</div>
         <div class="alloc-cell">
           <input type="number" id="s1-retirement" min="0" max="50000" placeholder="e.g. 25000" oninput="s1Update()" />
         </div>
@@ -573,13 +718,12 @@
       All three fields must sum to exactly ₹1,00,000. Returns are annual, compounded.
     </p>
 
-    <!-- Track 3 warning -->
+    <!-- Track 3 warning (hidden by default) -->
     <div class="callout danger" id="s2-track3-warn" style="display:none;">
       <div class="callout-head">&#9888; Historical Risk Advisory</div>
       Empirical data from SEBI studies indicates that <strong>4 out of 5 retail participants</strong> who concentrated their portfolio in high-risk equities lost their initial capital within three market cycles.
     </div>
 
-    <!-- Allocation Grid -->
     <div class="alloc-grid">
       <div class="alloc-row header-row">
         <div class="alloc-cell col-head">Asset Class</div>
@@ -588,13 +732,12 @@
       </div>
       <div class="alloc-row">
         <div class="alloc-cell label-cell">
-          <span class="asset-name">Safe Assets</span>
+          <span class="asset-name">Safe Assets <span class="s2-track2-badge" style="display:none; margin-left:8px; font-size:10px; background:#eef4fb; color:#2a5fa5; padding:2px 6px; vertical-align:middle;">Suggested</span></span>
           <span class="asset-note">Government bonds, FDs, PPF</span>
           <span class="asset-badge">Low Risk</span>
         </div>
         <div class="alloc-cell" style="font-size:14px; font-style:italic;">
-          <strong>+5% p.a.</strong>&nbsp; Guaranteed, government-backed instruments.
-          Capital fully protected.
+          <strong>+5% p.a.</strong>&nbsp; Guaranteed, government-backed instruments. Capital fully protected.
         </div>
         <div class="alloc-cell">
           <input type="number" id="s2-safe" min="0" max="100000" placeholder="e.g. 70000" oninput="s2Update()" />
@@ -607,8 +750,7 @@
           <span class="asset-badge">High Risk</span>
         </div>
         <div class="alloc-cell" style="font-size:14px; font-style:italic;">
-          <strong>+25% p.a.</strong>&nbsp; Potential upside; capital is not protected.
-          Full loss is possible.
+          <strong>+25% p.a.</strong>&nbsp; Potential upside; capital is not protected. Full loss is possible.
         </div>
         <div class="alloc-cell">
           <input type="number" id="s2-risk" min="0" max="100000" placeholder="e.g. 0" oninput="s2Update()" />
@@ -616,7 +758,7 @@
       </div>
       <div class="alloc-row">
         <div class="alloc-cell label-cell">
-          <span class="asset-name">Current Consumption</span>
+          <span class="asset-name">Current Consumption <span class="s2-track2-badge" style="display:none; margin-left:8px; font-size:10px; background:#eef4fb; color:#2a5fa5; padding:2px 6px; vertical-align:middle;">Suggested</span></span>
           <span class="asset-note">Immediate personal expenditure</span>
           <span class="asset-badge">No Return</span>
         </div>
@@ -663,13 +805,11 @@
       One instrument listed below is the subject of an active regulatory investigation.
     </p>
 
-    <!-- Fraud simulation note -->
     <div class="fraud-block">
       <div class="fraud-head">&#9888; Regulatory Simulation Notice — Educational Purposes</div>
       This stage incorporates a behavioural economics simulation of Unregulated Deposit Schemes that caused documented financial harm across India between 2016 and 2026. This simulation is designed to test susceptibility to high-yield fraud.
     </div>
 
-    <!-- Allocation Grid -->
     <div class="alloc-grid">
       <div class="alloc-row header-row">
         <div class="alloc-cell col-head">Instrument</div>
@@ -702,20 +842,26 @@
           <input type="number" id="s3-mf" min="0" max="50000" placeholder="e.g. 20000" oninput="s3Update()" />
         </div>
       </div>
-      <div class="alloc-row" style="background: #fff8f8;">
+      <div class="alloc-row" style="background:#fff8f8;">
         <div class="alloc-cell label-cell">
           <span class="asset-name">Unregulated Corporate Deposit</span>
           <span class="asset-note">"Assured Growth Scheme"</span>
           <span class="asset-badge fraud">⚠ Unregistered with SEBI / RBI</span>
         </div>
         <div class="alloc-cell" style="font-size:13px;">
-          <strong style="color: #b22222;">Guaranteed 24% p.a. return.</strong><br>
-          <em style="color: #555; font-size:12px;">No regulatory oversight. Principal not insured.</em>
+          <strong style="color:#b22222;">Guaranteed 24% p.a. return.</strong><br>
+          <em style="color:#555; font-size:12px;">No regulatory oversight. Principal not insured.</em>
         </div>
         <div class="alloc-cell">
           <input type="number" id="s3-fraud" min="0" max="50000" placeholder="e.g. 0" oninput="s3Update()" />
         </div>
       </div>
+    </div>
+
+    <!-- Track 3 inline fraud warning (shown dynamically via s3Update) -->
+    <div class="callout danger" id="s3-fraud-warn" style="display:none;">
+      <div class="callout-head">⚠ Regulatory Warning</div>
+      This scheme is unregistered with SEBI / RBI. Allocation here carries a high risk of total loss of principal.
     </div>
 
     <div class="validation-msg" id="s3-val-msg">Please enter amounts in all three fields.</div>
@@ -727,68 +873,72 @@
   </section>
 
   <!-- ════════════════════════════════════════════════════════════
-       STAGE 4 — WEALTH PROTECTION
+       STAGE 4 — THE BUNDLING TRAP (ULIP vs Term+ELSS)
   ════════════════════════════════════════════════════════════ -->
   <section class="stage" id="stage-4">
-    <p class="stage-eyebrow">Stage 4 of 7 &nbsp;·&nbsp; Wealth Protection</p>
+    <p class="stage-eyebrow">Stage 4 of 7 &nbsp;·&nbsp; Wealth Protection &amp; Growth</p>
     <h1 class="stage-title">
-      Asset Insurance Selection
-      <span class="subtitle">Secure your accumulated wealth against unforeseen liabilities.</span>
+      Long-Term Security Planning
+      <span class="subtitle">Your Bank Relationship Manager has proposed a comprehensive plan.</span>
     </h1>
 
     <div class="wallet-banner">
       <div>
-        <div class="wallet-label">Insurance Budget</div>
-        <div class="wallet-amount">₹20,000</div>
+        <div class="wallet-label">Annual Allocation Budget</div>
+        <div class="wallet-amount">₹1,50,000</div>
       </div>
     </div>
 
     <p class="instructions-block">
-      Select a comprehensive insurance plan to protect your assets. The premium will be deducted from your allocated budget. Select one option to proceed.
+      You need ₹50 Lakhs in life cover and wish to invest for 20 years. Review the options below and select your strategy. Your ₹1,50,000 budget must cover both insurance and investment.
     </p>
+
+    <!-- Track 3: Authority & Loss Aversion Nudge (hidden by default) -->
+    <div class="callout warn" id="s4-decoy-row" style="display:none;">
+      <div class="callout-head">⭐ Premium Client Recommendation</div>
+      "As your Relationship Manager, I highly recommend Plan A. It offers 100% Guaranteed Capital Protection, tax benefits, and covers your family. Over 3 crore Indian families trust this exact plan."
+    </div>
 
     <div class="alloc-grid">
       <div class="alloc-row header-row">
-        <div class="alloc-cell col-head" style="width: 50px;">Select</div>
-        <div class="alloc-cell col-head">Policy Tier</div>
-        <div class="alloc-cell col-head">Premium (₹)</div>
+        <div class="alloc-cell col-head" style="max-width:60px;">Select</div>
+        <div class="alloc-cell col-head">Financial Product</div>
+        <div class="alloc-cell col-head">Financial Structure</div>
       </div>
+      <!-- Option A: The ULIP / Endowment Trap -->
       <div class="alloc-row">
-        <div class="alloc-cell" style="justify-content: center;">
-          <input type="radio" name="s4-insurance" value="PlanA" onchange="s4Update()" style="transform: scale(1.4);">
+        <div class="alloc-cell" style="justify-content:center;">
+          <input type="radio" name="s4-insurance" value="PlanA" onchange="s4Update()" style="transform:scale(1.4);">
         </div>
         <div class="alloc-cell label-cell">
-          <span class="asset-name">Plan A: Basic Coverage</span>
-          <span class="asset-note">Covers standard liabilities with high deductibles.</span>
+          <span class="asset-name">Jeevan Samriddhi Plus (Bundled)</span>
+          <span class="asset-note">Insurance + Investment in one product.</span>
+          <span class="asset-badge" style="border-color:#b8860b; color:#b8860b;">Guaranteed Maturity</span>
         </div>
-        <div class="alloc-cell"><strong>₹5,000</strong></div>
+        <div class="alloc-cell" style="font-size:13px;">
+          <strong>Premium: ₹1,50,000 / year</strong><br>
+          <span style="color:var(--text-muted); font-style:italic;">Includes ₹50L cover. Projected 8% gross return. (Note: Subject to Premium Allocation, Policy Admin, and Mortality charges).</span>
+        </div>
       </div>
-      <div class="alloc-row" id="s4-decoy-row" style="display:none; background: #fafaf8;">
-        <div class="alloc-cell" style="justify-content: center;">
-          <input type="radio" name="s4-insurance" value="PlanC" onchange="s4Update()" style="transform: scale(1.4);">
-        </div>
-        <div class="alloc-cell label-cell">
-          <span class="asset-name">Plan C: Limited Plus</span>
-          <span class="asset-note">Basic coverage with minor hospitalisation benefits.</span>
-          <span class="asset-badge">Sub-Optimal Tier</span>
-        </div>
-        <div class="alloc-cell"><strong>₹11,500</strong></div>
-      </div>
+      <!-- Option B: Term + ELSS (Rational Choice) -->
       <div class="alloc-row">
-        <div class="alloc-cell" style="justify-content: center;">
-          <input type="radio" name="s4-insurance" value="PlanB" onchange="s4Update()" style="transform: scale(1.4);">
+        <div class="alloc-cell" style="justify-content:center;">
+          <input type="radio" name="s4-insurance" value="PlanB" onchange="s4Update()" style="transform:scale(1.4);">
         </div>
         <div class="alloc-cell label-cell">
-          <span class="asset-name">Plan B: Comprehensive Coverage</span>
-          <span class="asset-note">Zero-deductible full asset and health protection.</span>
-          <span class="asset-badge" style="border-color: #2e6e2e; color: #2e6e2e;">Recommended</span>
+          <span class="asset-name">Pure Term Plan + ELSS Mutual Fund</span>
+          <span class="asset-note">Unbundled. Separate protection and growth.</span>
+          <span class="asset-badge">Market Linked</span>
         </div>
-        <div class="alloc-cell"><strong>₹12,000</strong></div>
+        <div class="alloc-cell" style="font-size:13px;">
+          <strong>Split: ₹15,000 (Insurance) + ₹1,35,000 (Investment)</strong><br>
+          <span style="color:var(--text-muted); font-style:italic;">₹50L pure term cover. Remaining balance invested in Direct ELSS at 8% projected return. Zero allocation charges.</span>
+        </div>
       </div>
     </div>
 
     <div class="nav-bar">
-      <p class="instructions">Select one policy to continue.</p>
+      <p class="instructions">Select one strategy to continue.</p>
       <button class="btn-next" id="s4-next" onclick="s4Next()" disabled>Confirm &amp; Continue →</button>
     </div>
   </section>
@@ -814,6 +964,7 @@
       </div>
     </div>
 
+    <!-- Track 3: Interest pain warning (hidden by default) -->
     <div class="callout warn" id="s5-pain-warning" style="display:none;">
       <div class="callout-head">&#9888; Interest Advisory</div>
       Paying only the minimum due will result in compounding interest charges. At current rates (36% p.a.), clearing this debt via minimum payments will take <strong>9 years and cost you ₹40,000 in pure interest.</strong>
@@ -829,11 +980,11 @@
         <div class="alloc-cell label-cell">
           <span class="asset-name">Platinum Credit Card</span>
           <span class="asset-note">Statement Date: 23-JUN-2026</span>
-          <span class="asset-badge fraud">High Interest</span>
+          <span class="asset-badge fraud">High Interest · 36% p.a.</span>
         </div>
         <div class="alloc-cell" style="font-size:14px;">
           <strong>Total Due: ₹50,000</strong><br>
-          <span id="s5-anchor-text" style="color: #b22222; font-weight:bold;">Minimum Payment: ₹2,500</span>
+          <span id="s5-anchor-text" style="color:#b22222; font-weight:bold;">Minimum Payment: ₹2,500</span>
         </div>
         <div class="alloc-cell">
           <input type="number" id="s5-payment" min="2500" max="50000" placeholder="e.g. 2500" oninput="s5Update()" />
@@ -865,7 +1016,7 @@
         <div class="wallet-amount" id="s6-liquid-display">₹--</div>
       </div>
       <div class="wallet-remaining">
-        <div class="rem-label">Cart Total</div>
+        <div class="rem-label">Cart Total (Monthly)</div>
         <div class="rem-val under" id="s6-cart-total">₹0</div>
       </div>
     </div>
@@ -876,14 +1027,15 @@
 
     <div class="alloc-grid" id="s6-subs-container">
       <div class="alloc-row header-row">
-        <div class="alloc-cell col-head" style="width: 50px;">Select</div>
+        <div class="alloc-cell col-head" style="max-width:60px;">Select</div>
         <div class="alloc-cell col-head">Service Provider</div>
         <div class="alloc-cell col-head">Pricing Structure</div>
       </div>
+      <!-- Subscription rows injected by JS -->
     </div>
 
     <div class="nav-bar">
-      <p class="instructions">Select as many or as few as you need.</p>
+      <p class="instructions">Select as many or as few as you need. Unselected services cost nothing.</p>
       <button class="btn-next" id="s6-next" onclick="s6Next()">Confirm &amp; Continue →</button>
     </div>
   </section>
@@ -898,7 +1050,7 @@
       <span class="subtitle">Utilise your final discretionary allowance.</span>
     </h1>
 
-    <div class="wallet-banner" style="border-left-color: #555;">
+    <div class="wallet-banner" style="border-left-color:#555;">
       <div>
         <div class="wallet-label">Discretionary Allowance</div>
         <div class="wallet-amount" id="s7-budget-display">₹20,000</div>
@@ -910,14 +1062,19 @@
     </p>
 
     <div class="alloc-grid">
+      <div class="alloc-row header-row">
+        <div class="alloc-cell col-head">Item</div>
+        <div class="alloc-cell col-head">Price</div>
+        <div class="alloc-cell col-head">Action</div>
+      </div>
       <div class="alloc-row">
         <div class="alloc-cell label-cell">
           <span class="asset-name">Horological Timepiece</span>
           <span class="asset-note">Swiss-made automatic watch.</span>
         </div>
         <div class="alloc-cell"><strong>₹8,000</strong></div>
-        <div class="alloc-cell" style="justify-content: flex-end;">
-          <button class="btn-next" id="btn-item1" style="padding: 6px 16px;" onclick="buyItem(8000, 'btn-item1')">Purchase</button>
+        <div class="alloc-cell" style="justify-content:flex-end;">
+          <button class="btn-next" id="btn-item1" style="padding:6px 16px;" onclick="buyItem(8000, 'btn-item1')">Purchase</button>
         </div>
       </div>
       <div class="alloc-row">
@@ -926,8 +1083,8 @@
           <span class="asset-note">Polarised aviation sunglasses.</span>
         </div>
         <div class="alloc-cell"><strong>₹5,000</strong></div>
-        <div class="alloc-cell" style="justify-content: flex-end;">
-          <button class="btn-next" id="btn-item2" style="padding: 6px 16px;" onclick="buyItem(5000, 'btn-item2')">Purchase</button>
+        <div class="alloc-cell" style="justify-content:flex-end;">
+          <button class="btn-next" id="btn-item2" style="padding:6px 16px;" onclick="buyItem(5000, 'btn-item2')">Purchase</button>
         </div>
       </div>
       <div class="alloc-row">
@@ -936,15 +1093,15 @@
           <span class="asset-note">Active noise-cancelling headphones.</span>
         </div>
         <div class="alloc-cell"><strong>₹12,000</strong></div>
-        <div class="alloc-cell" style="justify-content: flex-end;">
-          <button class="btn-next" id="btn-item3" style="padding: 6px 16px;" onclick="buyItem(12000, 'btn-item3')">Purchase</button>
+        <div class="alloc-cell" style="justify-content:flex-end;">
+          <button class="btn-next" id="btn-item3" style="padding:6px 16px;" onclick="buyItem(12000, 'btn-item3')">Purchase</button>
         </div>
       </div>
     </div>
 
     <div class="nav-bar">
-      <p class="instructions">Finalise your purchases to complete the assessment.</p>
-      <button class="btn-next" style="background: #2e6e2e;" onclick="s7Next()">Finalise Assessment →</button>
+      <p class="instructions">Finalise your purchases to complete the assessment. Unspent funds add to your final score.</p>
+      <button class="btn-next" style="background:#2e6e2e;" onclick="s7Next()">Finalise Assessment →</button>
     </div>
   </section>
 
@@ -952,43 +1109,49 @@
        STAGE 8 — RESULTS & SUBMISSION
   ════════════════════════════════════════════════════════════ -->
   <section class="stage" id="stage-8">
-    <div style="text-align: center; padding: 40px 0;">
+    <div class="result-score-wrap">
       <p class="stage-eyebrow">Assessment Complete</p>
-      <h1 class="stage-title" style="border: none; margin-bottom: 0;">Financial IQ Evaluation</h1>
-      
-      <div style="font-size: 72px; font-weight: bold; color: var(--accent); margin: 20px 0;">
-        <span id="final-score-display">0</span><span style="font-size: 32px; color: var(--text-muted);">/100</span>
+      <h1 class="stage-title" style="border:none; margin-bottom:0;">Financial IQ Evaluation</h1>
+
+      <div class="result-score-big">
+        <span id="final-score-display">0</span><span>/100</span>
       </div>
 
-      <p class="instructions-block" style="border: none; max-width: 500px; margin: 0 auto 40px; padding: 0;">
+      <p class="instructions-block result-thanks">
         Thank you for completing the IFB Financial Gauntlet. Your cognitive biases and choice architecture responses have been recorded.
       </p>
 
-      <!-- Updated Form with Background Submission -->
-      <form id="data-form" onsubmit="submitForm(event)">
+      <!-- Hidden form for data packaging -->
+      <form id="data-form" style="display:none;">
         <input type="hidden" name="Participant_ID" id="form-pid">
         <input type="hidden" name="Assigned_Track" id="form-track">
         <input type="hidden" name="Raw_Data" id="form-data">
-        <button type="submit" id="submit-btn" class="btn-next" style="background: var(--info-border);">Submit Data to Lab Registry</button>
       </form>
-      
-      <!-- Hidden Success Message -->
-      <div id="submit-success" style="display: none; color: #2e6e2e; font-size: 18px; font-weight: bold; margin-top: 20px;">
+
+      <!-- Submission status indicators -->
+      <div id="submit-processing" class="status-processing">
+        <span class="spinner"></span> Transmitting data securely to the IFB Lab…
+      </div>
+      <div id="submit-success" class="status-success">
         ✓ Assessment Data Successfully Recorded. Thank you for participating.
+      </div>
+      <div id="submit-error" class="status-error">
+        ⚠ Network Error — Data could not be transmitted. Please check your connection and contact the researcher directly.
       </div>
 
       <!-- Researcher Contact Card -->
-      <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border); text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
-          <div style="display: flex; gap: 20px; align-items: center;">
-              <img src="file:///C:/Users/financelab02/Downloads/Screenshot 2026-06-24 000107.png" alt="Ritesh Kumar Sao" style="width: 90px; height: 90px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-dark);">
-              <div style="font-size: 14px; line-height: 1.5; color: var(--text-muted);">
-                  <strong style="color: var(--text); font-size: 16px;">Ritesh Kumar Sao</strong><br>
-                  Doctoral Scholar<br>
-                  National Institute of Technology Durgapur<br>
-                  <a href="mailto:rks.25ms1101@nitdgp.ac.in" style="color: var(--info-border); text-decoration: none;">rks.25ms1101@nitdgp.ac.in</a><br>
-                  <a href="mailto:saoriteshkumar@gmail.com" style="color: var(--info-border); text-decoration: none;">saoriteshkumar@gmail.com</a>
-              </div>
+      <div class="researcher-card">
+        <div class="researcher-card-inner">
+          <!-- Profile photo uses a text avatar fallback since file:// paths don't work in browsers -->
+          <div class="researcher-avatar" title="Ritesh Kumar Sao">RKS</div>
+          <div class="researcher-info">
+            <strong>Ritesh Kumar Sao</strong><br>
+            Doctoral Scholar<br>
+            National Institute of Technology Durgapur<br>
+            <a href="mailto:rks.25ms1101@nitdgp.ac.in">rks.25ms1101@nitdgp.ac.in</a><br>
+            <a href="mailto:saoriteshkumar@gmail.com">saoriteshkumar@gmail.com</a>
           </div>
+        </div>
       </div>
 
     </div>
@@ -998,376 +1161,491 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════════
      GLOBAL JAVASCRIPT
-══════════════════════════════════════════════════════════════════════════ -->
+════════════════════════════════════════════════════════════════════════ -->
 <script>
-  /* ────────────────────────────────────────────────────────────────────
-     GLOBAL STATE & DATA STORE
-  ──────────────────────────────────────────────────────────────────── */
-  const TOTAL_STAGES  = 7;
-  const track         = Math.floor(Math.random() * 3) + 1;
-  let   currentScore  = 0;
-  let   currentStage  = 0;
-  let   globalFunds   = 320000;
-  let   remainingLiquidCash = 100000;
-  let   s7DiscretionaryFund = 20000;
-  const rawData = {};
+/* ────────────────────────────────────────────────────────────────────
+   GLOBAL STATE
+──────────────────────────────────────────────────────────────────── */
+const TOTAL_STAGES = 7;
 
-  /* ────────────────────────────────────────────────────────────────────
-     INITIALISE UI
-  ──────────────────────────────────────────────────────────────────── */
-  (function init() {
-    const pid = 'P-' + Date.now().toString(36).toUpperCase().slice(-6);
-    document.getElementById('study-id-label').textContent = `Study: IFB-2024-FG  |  Participant: ${pid}  |  Track: ${track}`;
+// Cryptographically random track assignment (1, 2, or 3)
+const randomBuffer = new Uint32Array(1);
+window.crypto.getRandomValues(randomBuffer);
+const track = (randomBuffer[0] % 3) + 1;
 
-    const pipsEl = document.getElementById('stage-pips');
-    for (let i = 1; i <= TOTAL_STAGES; i++) {
-      const pip = document.createElement('div');
-      pip.className = 'pip' + (i === 1 ? ' active' : '');
-      pip.id = `pip-${i}`;
-      pip.textContent = i;
-      pipsEl.appendChild(pip);
-    }
-
-    applyTrackOverrides();
-    // Start at Intro Stage
-    showStage(0);
-  })();
-
-  /* ────────────────────────────────────────────────────────────────────
-     TRACK-SPECIFIC OVERRIDES
-  ──────────────────────────────────────────────────────────────────── */
-  function applyTrackOverrides() {
-    if (track === 3) document.getElementById('s1-track3-note').style.display = 'block';
-
-    if (track === 2) {
-      document.getElementById('s2-safe').value    = 70000;
-      document.getElementById('s2-consume').value = 30000;
-      s2Update(); 
-    }
-    if (track === 3) document.getElementById('s2-track3-warn').style.display = 'block';
-
-    if (track === 3) document.getElementById('s4-decoy-row').style.display = 'flex';
-
-    if (track === 2) document.getElementById('s5-anchor-text').style.display = 'none';
-    if (track === 3) document.getElementById('s5-pain-warning').style.display = 'block';
-
-    const subContainer = document.getElementById('s6-subs-container');
-    const services = ['Cloud Storage', 'Premium Streaming', 'News Publication', 'Fitness App', 'Music Platform'];
-    let priceText = (track === 1) ? '<strong>₹299</strong> / month' : '<strong>₹3,588</strong> / year (billed monthly)';
-    
-    services.forEach((srv, i) => {
-      subContainer.innerHTML += `
-        <div class="alloc-row">
-          <div class="alloc-cell" style="justify-content: center;">
-            <input type="checkbox" id="s6-sub${i}" value="299" onchange="s6Update()" style="transform: scale(1.4);">
-          </div>
-          <div class="alloc-cell label-cell"><span class="asset-name">${srv}</span></div>
-          <div class="alloc-cell">${priceText}</div>
-        </div>
-      `;
-    });
-  }
-
-  /* ────────────────────────────────────────────────────────────────────
-     NAVIGATION & UTILITIES
-  ──────────────────────────────────────────────────────────────────── */
-  function showStage(n) {
-    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
-    document.getElementById(`stage-${n}`).classList.add('active');
-    currentStage = n;
-    
-    if (n > 0 && n <= TOTAL_STAGES) {
-        document.getElementById('progress-rail-container').style.display = 'flex';
-        updateProgress(n);
-    } else if (n === 0 || n > TOTAL_STAGES) {
-        document.getElementById('progress-rail-container').style.display = 'none';
-    }
-    
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function updateProgress(n) {
-    const pct = ((n - 1) / TOTAL_STAGES) * 100;
-    document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('score-display').textContent = currentScore;
-    for (let i = 1; i <= TOTAL_STAGES; i++) {
-      const pip = document.getElementById(`pip-${i}`);
-      if (!pip) continue;
-      pip.className = 'pip' + (i < n ? ' done' : i === n ? ' active' : '');
-    }
-  }
-
-  function addScore(pts) {
-    currentScore += pts;
-    document.getElementById('score-display').textContent = currentScore;
-  }
-
-  function updateGlobalFunds(amountLocked) {
-      globalFunds -= amountLocked;
-      document.getElementById('global-funds').textContent = '₹' + fmt(globalFunds);
-  }
-
-  // FIX: parseNum now correctly returns 0 if input is completely empty or NaN
-  function parseNum(id) {
-    const val = parseFloat(document.getElementById(id).value);
-    return isNaN(val) ? 0 : Math.round(val);
-  }
-
-  function fmt(n) {
-    if (isNaN(n) || n === null) return '0';
-    n = Math.abs(Math.round(n));
-    const s = n.toString();
-    if (s.length <= 3) return s;
-    const last3 = s.slice(-3);
-    const rest  = s.slice(0, -3);
-    return rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + ',' + last3;
-  }
-
-  function setRemaining(elId, rem, total) {
-    const el = document.getElementById(elId);
-    if (!el) return;
-    el.textContent = (rem < 0 ? '−' : '') + '₹' + fmt(Math.abs(rem));
-    if (rem === 0)    { el.className = 'rem-val balanced'; }
-    else if (rem < 0) { el.className = 'rem-val over'; }
-    else              { el.className = 'rem-val under'; }
-  }
-
-  function flashScore(msg) {
-    updateProgress(currentStage);
-    const toast = document.createElement('div');
-    toast.textContent = msg;
-    Object.assign(toast.style, {
-      position:'fixed', bottom:'28px', right:'28px', background:'#1a1a1a', color:'#fff',
-      fontFamily:"'Times New Roman', serif", fontStyle:'italic', fontSize:'13px',
-      padding:'10px 20px', border:'1px solid #555', zIndex:9999, opacity:'0',
-      transition:'opacity 0.3s ease', pointerEvents:'none'
-    });
-    document.body.appendChild(toast);
-    requestAnimationFrame(() => {
-      toast.style.opacity = '1';
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => document.body.removeChild(toast), 350);
-      }, 2800);
-    });
-  }
-
-  /* ────────────────────────────────────────────────────────────────────
-     STAGE LOGIC
-  ──────────────────────────────────────────────────────────────────── */
-  function s0Next() { showStage(1); }
-
-  function s1Update() {
-    const cash = parseNum('s1-cash');
-    const retir = parseNum('s1-retirement');
-    const sum = cash + retir;
-    const rem = 50000 - sum;
-    setRemaining('s1-remaining', rem, 50000);
-    
-    const msg = document.getElementById('s1-val-msg');
-    const btn = document.getElementById('s1-next');
-    if (sum !== 50000) {
-      msg.textContent = `Total is ₹${fmt(sum)} — must equal ₹50,000.`;
-      msg.className = 'validation-msg'; btn.disabled = true;
-    } else {
-      msg.textContent = '✓ Allocation balanced.';
-      msg.className = 'validation-msg ok'; btn.disabled = false;
-    }
-  }
-
-  function s1Next() {
-    const retir = parseNum('s1-retirement');
-    if (retir >= 25000) { addScore(15); flashScore('+15 pts — Prudent retirement allocation'); }
-    updateGlobalFunds(50000);
-    showStage(2);
-  }
-
-  function s2Update() {
-    const safe = parseNum('s2-safe'); const risk = parseNum('s2-risk'); const consume = parseNum('s2-consume');
-    const sum = safe + risk + consume; const rem = 100000 - sum;
-    setRemaining('s2-remaining', rem, 100000);
-
-    const msg = document.getElementById('s2-val-msg'); const btn = document.getElementById('s2-next');
-    if (sum !== 100000) {
-      msg.textContent = `Total is ₹${fmt(sum)} — must equal ₹1,00,000.`;
-      msg.className = 'validation-msg'; btn.disabled = true;
-    } else {
-      msg.textContent = '✓ Allocation balanced.';
-      msg.className = 'validation-msg ok'; btn.disabled = false;
-    }
-  }
-
-  function s2Next() {
-    const safe = parseNum('s2-safe'); const risk = parseNum('s2-risk');
-    if (safe > risk) { addScore(15); flashScore('+15 pts — Conservative portfolio'); } 
-    else if (risk > safe) { addScore(5); flashScore('+5 pts — Risk-seeking preference recorded'); }
-    updateGlobalFunds(100000);
-    showStage(3);
-  }
-
-  function s3Update() {
-    const bond = parseNum('s3-bond'); const mf = parseNum('s3-mf'); const fraud = parseNum('s3-fraud');
-    const sum = bond + mf + fraud; const rem = 50000 - sum;
-    setRemaining('s3-remaining', rem, 50000);
-
-    const msg = document.getElementById('s3-val-msg'); const btn = document.getElementById('s3-next');
-    if (sum !== 50000) {
-      msg.textContent = `Total is ₹${fmt(sum)} — must equal ₹50,000.`;
-      msg.className = 'validation-msg'; btn.disabled = true;
-    } else {
-      msg.textContent = '✓ Allocation balanced.';
-      msg.className = 'validation-msg ok'; btn.disabled = false;
-    }
-  }
-
-  function s3Next() {
-    const fraudAmt = parseNum('s3-fraud');
-    if (track === 2 && fraudAmt > 0) {
-      const accepted = confirm('⚠ RISK ACKNOWLEDGEMENT REQUIRED\n\nYou are allocating ₹' + fmt(fraudAmt) + ' to an unregulated deposit scheme with no SEBI or RBI registration.\n\nClick CANCEL to revise. Click OK to accept total risk of loss.');
-      if (!accepted) return; 
-    }
-    if (fraudAmt === 0) { addScore(20); flashScore('+20 pts — Fraud instrument avoided'); } 
-    else if (fraudAmt > 25000) { addScore(-10); flashScore('−10 pts — High exposure to fraud'); }
-    updateGlobalFunds(50000);
-    showStage(4);
-  }
-
-  function s4Update() { document.getElementById('s4-next').disabled = false; }
-  
-  function s4Next() {
-    const choice = document.querySelector('input[name="s4-insurance"]:checked').value;
-    if (choice === 'PlanB') { addScore(10); flashScore('+10 pts — Optimal comprehensive coverage'); } 
-    else if (choice === 'PlanA') { addScore(5); flashScore('+5 pts — Basic coverage'); }
-    updateGlobalFunds(20000);
-    showStage(5);
-  }
-
-  function s5Update() {
-    const payment = parseNum('s5-payment');
-    const msg = document.getElementById('s5-val-msg'); const btn = document.getElementById('s5-next');
-    if (payment < 2500 || payment > 50000) {
-      msg.textContent = 'Enter a valid payment between ₹2,500 and ₹50,000.';
-      msg.className = 'validation-msg'; btn.disabled = true;
-    } else {
-      msg.textContent = '✓ Payment amount accepted.';
-      msg.className = 'validation-msg ok'; btn.disabled = false;
-    }
-  }
-
-  function s5Next() {
-    const payment = parseNum('s5-payment');
-    if (payment === 50000) { addScore(20); flashScore('+20 pts — High-interest liability cleared'); } 
-    else if (payment >= 10000) { addScore(10); flashScore('+10 pts — Strong principal reduction'); }
-    remainingLiquidCash -= payment;
-    document.getElementById('s6-liquid-display').textContent = '₹' + fmt(remainingLiquidCash);
-    updateGlobalFunds(payment);
-    showStage(6);
-  }
-
-  function s6Update() {
-    let subCount = 0;
-    for(let i=0; i<5; i++) { if(document.getElementById('s6-sub'+i).checked) subCount++; }
-    document.getElementById('s6-cart-total').textContent = '₹' + fmt(subCount * 299);
-  }
-
-  function s6Next() {
-    let subCount = 0;
-    for(let i=0; i<5; i++) { if(document.getElementById('s6-sub'+i).checked) subCount++; }
-    if (subCount <= 3) { addScore(10); flashScore('+10 pts — Subscription bloat avoided'); }
-    updateGlobalFunds(subCount * 299);
-    showStage(7);
-  }
-
-  function buyItem(cost, btnId) {
-    if (s7DiscretionaryFund >= cost) {
-      const btn = document.getElementById(btnId);
-      btn.disabled = true;
-      if (track === 2 || track === 3) {
-        btn.innerText = "Processing..."; btn.style.background = "#8a8a80";
-        setTimeout(() => { executePurchase(cost, btn); }, 3000); 
-      } else {
-        executePurchase(cost, btn);
-      }
-    } else { alert("Insufficient discretionary funds."); }
-  }
-
-  function executePurchase(cost, btn) {
-    s7DiscretionaryFund -= cost;
-    document.getElementById('s7-budget-display').textContent = '₹' + fmt(s7DiscretionaryFund);
-    btn.innerText = "Purchased ✓"; btn.style.background = "#2e6e2e";
-    updateGlobalFunds(cost);
-  }
-
-  function s7Next() {
-    if (s7DiscretionaryFund >= 10000) { addScore(10); flashScore('+10 pts — Capital conserved'); }
-    
-    // Package Data
-    document.getElementById('final-score-display').textContent = currentScore;
-    document.getElementById('form-pid').value = document.getElementById('study-id-label').textContent;
-    document.getElementById('form-track').value = track;
-    
-    // Collect all inputs to raw data object
-    rawData.Track = track;
-    rawData.Score = currentScore;
-    rawData.S1_Cash = document.getElementById('s1-cash').value;
-    rawData.S1_Retirement = document.getElementById('s1-retirement').value;
-    rawData.S2_Safe = document.getElementById('s2-safe').value;
-    rawData.S2_Risk = document.getElementById('s2-risk').value;
-    rawData.S2_Consume = document.getElementById('s2-consume').value;
-    rawData.S3_Bond = document.getElementById('s3-bond').value;
-    rawData.S3_MF = document.getElementById('s3-mf').value;
-    rawData.S3_Fraud = document.getElementById('s3-fraud').value;
-    const insChoice = document.querySelector('input[name="s4-insurance"]:checked');
-    rawData.S4_Insurance = insChoice ? insChoice.value : 'None';
-    rawData.S5_DebtPayment = document.getElementById('s5-payment').value;
-    rawData.S6_SubCount = document.querySelectorAll('input[id^="s6-sub"]:checked').length;
-    rawData.S7_Unspent = s7DiscretionaryFund;
-
-    document.getElementById('form-data').value = JSON.stringify(rawData);
-    
-    document.getElementById('progress-fill').style.width = '100%';
-    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
-    document.getElementById('stage-8').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+let currentScore         = 0;
+let currentStage         = 0;
+let globalFunds          = 320000;
+let remainingLiquidCash  = 100000;
+let s7DiscretionaryFund  = 20000;
+const rawData = {};
 
 /* ────────────────────────────────────────────────────────────────────
-     FORM SUBMISSION LOGIC (AJAX Fetch - Google Sheets)
-  ──────────────────────────────────────────────────────────────────── */
-  async function submitForm(event) {
-    event.preventDefault(); 
-    
-    // VERIFY THIS IS THE URL YOU JUST DEPLOYED (Version 2)
-    const googleScriptURL = "https://script.google.com/macros/s/AKfycbx-v2mRzwXhFpBN9kVQJInMmJU_KF-d_Rwb8Zu7rxKhH7Ss6AIIxYT1n7h6pxDpVHI/exec";
+   INITIALISE UI
+──────────────────────────────────────────────────────────────────── */
+(function init() {
+  const pid = 'P-' + Date.now().toString(36).toUpperCase().slice(-6);
+  document.getElementById('study-id-label').textContent =
+    `Study: IFB-2024-FG  |  Participant: ${pid}  |  Track: ${track}`;
 
-    const btn = document.getElementById('submit-btn');
-    const successMsg = document.getElementById('submit-success');
-    
-    btn.innerText = "Transmitting Data...";
-    btn.disabled = true;
-    btn.style.opacity = "0.7";
-
-    const formElement = document.getElementById('data-form');
-    const formData = new FormData(formElement);
-
-    try {
-      // mode: 'no-cors' is mandatory so the browser allows the silent push to Google's servers
-      await fetch(googleScriptURL, {
-        method: "POST",
-        mode: "no-cors",
-        body: formData
-      });
-
-      // Because 'no-cors' hides the server response, we assume success
-      formElement.style.display = 'none';
-      successMsg.style.display = 'block';
-
-    } catch (error) {
-      btn.innerText = "Network Error - Try Again";
-      btn.disabled = false;
-      alert("Network error. Please check your connection and try again.");
-    }
+  // Build stage pips
+  const pipsEl = document.getElementById('stage-pips');
+  for (let i = 1; i <= TOTAL_STAGES; i++) {
+    const pip = document.createElement('div');
+    pip.className = 'pip' + (i === 1 ? ' active' : '');
+    pip.id = `pip-${i}`;
+    pip.textContent = i;
+    pipsEl.appendChild(pip);
   }
+
+  applyTrackOverrides();
+  showStage(0);
+})();
+
+/* ────────────────────────────────────────────────────────────────────
+   TRACK-SPECIFIC OVERRIDES  (BUG FIX: was missing closing brace,
+   causing all navigation functions to be out of global scope)
+──────────────────────────────────────────────────────────────────── */
+function applyTrackOverrides() {
+
+  // ═══ STAGE 1: WINDFALL ═══
+  if (track === 2) {
+    // Default nudge: pre-fill optimal retirement allocation
+    document.getElementById('s1-cash').value       = 0;
+    document.getElementById('s1-retirement').value = 50000;
+    document.getElementById('s1-track2-badge').style.display = 'inline';
+    s1Update();
+  }
+  if (track === 3) {
+    // Show compounding table to trigger analytical thinking
+    document.getElementById('s1-track3-note').style.display = 'block';
+  }
+
+  // ═══ STAGE 2: PORTFOLIO ═══
+  if (track === 2) {
+    document.getElementById('s2-safe').value    = 70000;
+    document.getElementById('s2-consume').value = 30000;
+    s2Update();
+    document.querySelectorAll('.s2-track2-badge').forEach(b => b.style.display = 'inline-block');
+  }
+  if (track === 3) {
+    document.getElementById('s2-track3-warn').style.display = 'block';
+  }
+
+  // ═══ STAGE 3: OPPORTUNITY ASSESSMENT ═══
+  if (track === 2) {
+    // Pre-fill safe options; fraud field stays at 0 (default)
+    document.getElementById('s3-bond').value = 30000;
+    document.getElementById('s3-mf').value   = 20000;
+    document.getElementById('s3-fraud').value = 0;
+    s3Update();
+  }
+  // Note: Track 3 fraud warning is shown dynamically in s3Update() when user types
+
+  // ═══ STAGE 4: BUNDLING TRAP ═══
+  if (track === 2) {
+    // Pre-select the bundled product (anchoring nudge — sub-optimal)
+    document.querySelector('input[value="PlanA"]').checked = true;
+    document.getElementById('s4-next').disabled = false;
+  }
+  if (track === 3) {
+    // Authority nudge: show the RM recommendation
+    document.getElementById('s4-decoy-row').style.display = 'block';
+  }
+
+  // ═══ STAGE 5: DEBT MANAGEMENT ═══
+  if (track === 2) {
+    // Remove the minimum-payment anchor to test anchoring bias
+    document.getElementById('s5-anchor-text').style.display = 'none';
+  }
+  if (track === 3) {
+    // Pain salience: show interest cost advisory
+    document.getElementById('s5-pain-warning').style.display = 'block';
+  }
+
+  // ═══ STAGE 6: SUBSCRIPTIONS ═══
+  // BUG FIX: checkbox value was using data-attribute but s6Update read a hardcoded 299.
+  // Now s6Update() reads from checkbox.value, and value is set correctly per track here.
+  const subContainer = document.getElementById('s6-subs-container');
+  const services = ['Cloud Storage', 'Premium Streaming', 'News Publication', 'Fitness App', 'Music Platform'];
+  const pricePerSub  = (track === 1) ? 299 : 3588;
+  const priceLabel   = (track === 1)
+    ? '<strong>₹299</strong> / month'
+    : '<strong>₹3,588</strong> / year <em style="font-size:12px; color:var(--text-muted);">(≈ ₹299 billed monthly)</em>';
+
+  services.forEach((srv, i) => {
+    const row = document.createElement('div');
+    row.className = 'alloc-row';
+    row.innerHTML = `
+      <div class="alloc-cell" style="justify-content:center;">
+        <input type="checkbox" id="s6-sub${i}" value="${pricePerSub}" onchange="s6Update()" style="transform:scale(1.4);">
+      </div>
+      <div class="alloc-cell label-cell"><span class="asset-name">${srv}</span></div>
+      <div class="alloc-cell">${priceLabel}</div>
+    `;
+    subContainer.appendChild(row);
+  });
+
+} // ← BUG FIX: this closing brace was MISSING in the original, which trapped all
+  //   navigation and utility functions inside applyTrackOverrides, making them
+  //   invisible to onclick handlers and causing the whole page to fail.
+
+/* ────────────────────────────────────────────────────────────────────
+   NAVIGATION & UTILITIES
+──────────────────────────────────────────────────────────────────── */
+function showStage(n) {
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+  document.getElementById(`stage-${n}`).classList.add('active');
+  currentStage = n;
+
+  if (n > 0 && n <= TOTAL_STAGES) {
+    document.getElementById('progress-rail-container').style.display = 'flex';
+    updateProgress(n);
+  } else {
+    document.getElementById('progress-rail-container').style.display = 'none';
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress(n) {
+  // BUG FIX: was (n-1)/TOTAL_STAGES — showed 0% on stage 1, never reached 100%
+  // Now uses n/TOTAL_STAGES so progress fills proportionally through all stages
+  const pct = (n / TOTAL_STAGES) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('score-display').textContent = currentScore;
+  for (let i = 1; i <= TOTAL_STAGES; i++) {
+    const pip = document.getElementById(`pip-${i}`);
+    if (!pip) continue;
+    pip.className = 'pip' + (i < n ? ' done' : i === n ? ' active' : '');
+  }
+}
+
+function addScore(pts) {
+  currentScore += pts;
+  document.getElementById('score-display').textContent = currentScore;
+}
+
+function updateGlobalFunds(amount) {
+  globalFunds -= amount;
+  document.getElementById('global-funds').textContent = '₹' + fmt(globalFunds);
+}
+
+function parseNum(id) {
+  const val = parseFloat(document.getElementById(id).value);
+  return isNaN(val) ? 0 : Math.round(val);
+}
+
+function fmt(n) {
+  if (isNaN(n) || n === null) return '0';
+  n = Math.abs(Math.round(n));
+  const s = n.toString();
+  if (s.length <= 3) return s;
+  const last3 = s.slice(-3);
+  const rest  = s.slice(0, -3);
+  return rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + ',' + last3;
+}
+
+function setRemaining(elId, rem, total) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  el.textContent = (rem < 0 ? '−' : '') + '₹' + fmt(Math.abs(rem));
+  if (rem === 0)       { el.className = 'rem-val balanced'; }
+  else if (rem < 0)    { el.className = 'rem-val over'; }
+  else                 { el.className = 'rem-val under'; }
+}
+
+function flashScore(msg) {
+  updateProgress(currentStage);
+  const toast = document.createElement('div');
+  toast.className = 'score-toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => {
+    toast.style.opacity = '1';
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => document.body.removeChild(toast), 350);
+    }, 2800);
+  });
+}
+
+/* ────────────────────────────────────────────────────────────────────
+   STAGE LOGIC
+──────────────────────────────────────────────────────────────────── */
+
+// ─── Stage 0 ───
+function s0Next() { showStage(1); }
+
+// ─── Stage 1 ───
+function s1Update() {
+  const cash  = parseNum('s1-cash');
+  const retir = parseNum('s1-retirement');
+  const sum   = cash + retir;
+  const rem   = 50000 - sum;
+  setRemaining('s1-remaining', rem, 50000);
+
+  const msg = document.getElementById('s1-val-msg');
+  const btn = document.getElementById('s1-next');
+  if (sum !== 50000) {
+    msg.textContent = `Total is ₹${fmt(sum)} — must equal ₹50,000.`;
+    msg.className = 'validation-msg';
+    btn.disabled = true;
+  } else {
+    msg.textContent = '✓ Allocation balanced.';
+    msg.className = 'validation-msg ok';
+    btn.disabled = false;
+  }
+}
+
+function s1Next() {
+  const retir = parseNum('s1-retirement');
+  if (retir >= 25000) { addScore(15); flashScore('+15 pts — Prudent retirement allocation'); }
+  updateGlobalFunds(50000);
+  showStage(2);
+}
+
+// ─── Stage 2 ───
+function s2Update() {
+  const safe    = parseNum('s2-safe');
+  const risk    = parseNum('s2-risk');
+  const consume = parseNum('s2-consume');
+  const sum = safe + risk + consume;
+  const rem = 100000 - sum;
+  setRemaining('s2-remaining', rem, 100000);
+
+  const msg = document.getElementById('s2-val-msg');
+  const btn = document.getElementById('s2-next');
+  if (sum !== 100000) {
+    msg.textContent = `Total is ₹${fmt(sum)} — must equal ₹1,00,000.`;
+    msg.className = 'validation-msg';
+    btn.disabled = true;
+  } else {
+    msg.textContent = '✓ Allocation balanced.';
+    msg.className = 'validation-msg ok';
+    btn.disabled = false;
+  }
+}
+
+function s2Next() {
+  const safe = parseNum('s2-safe');
+  const risk = parseNum('s2-risk');
+  if (safe > risk)      { addScore(15); flashScore('+15 pts — Conservative portfolio'); }
+  else if (risk > safe) { addScore(5);  flashScore('+5 pts — Risk-seeking preference recorded'); }
+  updateGlobalFunds(100000);
+  showStage(3);
+}
+
+// ─── Stage 3 ───
+function s3Update() {
+  const bond  = parseNum('s3-bond');
+  const mf    = parseNum('s3-mf');
+  const fraud = parseNum('s3-fraud');
+  const sum = bond + mf + fraud;
+  const rem = 50000 - sum;
+  setRemaining('s3-remaining', rem, 50000);
+
+  const msg = document.getElementById('s3-val-msg');
+  const btn = document.getElementById('s3-next');
+  if (sum !== 50000) {
+    msg.textContent = `Total is ₹${fmt(sum)} — must equal ₹50,000.`;
+    msg.className = 'validation-msg';
+    btn.disabled = true;
+  } else {
+    msg.textContent = '✓ Allocation balanced.';
+    msg.className = 'validation-msg ok';
+    btn.disabled = false;
+  }
+
+  // BUG FIX: Track 3 fraud warning was wrongly placed in applyTrackOverrides()
+  // where parseNum always returned 0. Now it runs here on every input change.
+  const fraudWarn = document.getElementById('s3-fraud-warn');
+  if (track === 3 && fraud > 0) {
+    fraudWarn.style.display = 'block';
+  } else {
+    fraudWarn.style.display = 'none';
+  }
+}
+
+function s3Next() {
+  const fraudAmt = parseNum('s3-fraud');
+  if (track === 2 && fraudAmt > 0) {
+    const accepted = confirm(
+      '⚠ RISK ACKNOWLEDGEMENT REQUIRED\n\n' +
+      'You are allocating ₹' + fmt(fraudAmt) + ' to an unregulated deposit scheme with no SEBI or RBI registration.\n\n' +
+      'Click CANCEL to revise. Click OK to accept total risk of loss.'
+    );
+    if (!accepted) return;
+  }
+  if (fraudAmt === 0)          { addScore(20);  flashScore('+20 pts — Fraud instrument avoided'); }
+  else if (fraudAmt > 25000)   { addScore(-10); flashScore('−10 pts — High exposure to fraud'); }
+  updateGlobalFunds(50000);
+  showStage(4);
+}
+
+// ─── Stage 4 ───
+// BUG FIX: s4Update now correctly enables the button when a radio is selected.
+// Previously it always unlocked on load regardless of selection.
+function s4Update() {
+  const chosen = document.querySelector('input[name="s4-insurance"]:checked');
+  document.getElementById('s4-next').disabled = !chosen;
+}
+
+function s4Next() {
+  const chosen = document.querySelector('input[name="s4-insurance"]:checked');
+  if (!chosen) return;
+  if (chosen.value === 'PlanB')      { addScore(20); flashScore('+20 pts — Optimal Unbundled Strategy (Term + ELSS)'); }
+  else if (chosen.value === 'PlanA') { addScore(-5); flashScore('−5 pts — Sub-optimal Bundled Product (ULIP/Endowment)'); }
+  updateGlobalFunds(150000);
+  showStage(5);
+}
+
+// ─── Stage 5 ───
+function s5Update() {
+  const payment = parseNum('s5-payment');
+  const msg = document.getElementById('s5-val-msg');
+  const btn = document.getElementById('s5-next');
+  if (payment < 2500 || payment > 50000) {
+    msg.textContent = 'Enter a valid payment between ₹2,500 and ₹50,000.';
+    msg.className = 'validation-msg';
+    btn.disabled = true;
+  } else {
+    msg.textContent = '✓ Payment amount accepted.';
+    msg.className = 'validation-msg ok';
+    btn.disabled = false;
+  }
+}
+
+function s5Next() {
+  const payment = parseNum('s5-payment');
+  if (payment === 50000)       { addScore(20); flashScore('+20 pts — High-interest liability cleared'); }
+  else if (payment >= 10000)   { addScore(10); flashScore('+10 pts — Strong principal reduction'); }
+  remainingLiquidCash -= payment;
+  document.getElementById('s6-liquid-display').textContent = '₹' + fmt(remainingLiquidCash);
+  updateGlobalFunds(payment);
+  showStage(6);
+}
+
+// ─── Stage 6 ───
+// BUG FIX: original always multiplied by hardcoded 299 regardless of track.
+// Now reads the actual value from each checkbox (set per-track in applyTrackOverrides).
+function s6Update() {
+  let total = 0;
+  for (let i = 0; i < 5; i++) {
+    const cb = document.getElementById('s6-sub' + i);
+    if (cb && cb.checked) total += parseInt(cb.value, 10);
+  }
+  document.getElementById('s6-cart-total').textContent = '₹' + fmt(total);
+}
+
+function s6Next() {
+  let subCount = 0;
+  let totalCost = 0;
+  for (let i = 0; i < 5; i++) {
+    const cb = document.getElementById('s6-sub' + i);
+    if (cb && cb.checked) { subCount++; totalCost += parseInt(cb.value, 10); }
+  }
+  if (subCount <= 3) { addScore(10); flashScore('+10 pts — Subscription bloat avoided'); }
+  updateGlobalFunds(totalCost);
+  showStage(7);
+}
+
+// ─── Stage 7 ───
+function buyItem(cost, btnId) {
+  if (s7DiscretionaryFund < cost) {
+    alert('Insufficient discretionary funds.');
+    return;
+  }
+  const btn = document.getElementById(btnId);
+  btn.disabled = true;
+
+  if (track === 2 || track === 3) {
+    // Cognitive friction: 3-second deliberation delay
+    btn.textContent = 'Processing…';
+    btn.style.background = '#8a8a80';
+    setTimeout(() => executePurchase(cost, btn), 3000);
+  } else {
+    executePurchase(cost, btn);
+  }
+}
+
+function executePurchase(cost, btn) {
+  s7DiscretionaryFund -= cost;
+  document.getElementById('s7-budget-display').textContent = '₹' + fmt(s7DiscretionaryFund);
+  btn.textContent = 'Purchased ✓';
+  btn.style.background = '#2e6e2e';
+  updateGlobalFunds(cost);
+}
+
+function s7Next() {
+  if (s7DiscretionaryFund >= 10000) { addScore(10); flashScore('+10 pts — Capital conserved'); }
+
+  // Package all data
+  document.getElementById('final-score-display').textContent = currentScore;
+  document.getElementById('form-pid').value   = document.getElementById('study-id-label').textContent;
+  document.getElementById('form-track').value = track;
+
+  rawData.Track           = track;
+  rawData.Score           = currentScore;
+  rawData.S1_Cash         = document.getElementById('s1-cash').value;
+  rawData.S1_Retirement   = document.getElementById('s1-retirement').value;
+  rawData.S2_Safe         = document.getElementById('s2-safe').value;
+  rawData.S2_Risk         = document.getElementById('s2-risk').value;
+  rawData.S2_Consume      = document.getElementById('s2-consume').value;
+  rawData.S3_Bond         = document.getElementById('s3-bond').value;
+  rawData.S3_MF           = document.getElementById('s3-mf').value;
+  rawData.S3_Fraud        = document.getElementById('s3-fraud').value;
+  const insChoice         = document.querySelector('input[name="s4-insurance"]:checked');
+  rawData.S4_Insurance    = insChoice ? insChoice.value : 'None';
+  rawData.S5_DebtPayment  = document.getElementById('s5-payment').value;
+  rawData.S6_SubCount     = (() => {
+    let c = 0;
+    for (let i = 0; i < 5; i++) {
+      const cb = document.getElementById('s6-sub' + i);
+      if (cb && cb.checked) c++;
+    }
+    return c;
+  })();
+  rawData.S7_Unspent      = s7DiscretionaryFund;
+
+  document.getElementById('form-data').value = JSON.stringify(rawData);
+
+  // Show results screen (progress bar fills to 100%)
+  document.getElementById('progress-fill').style.width = '100%';
+  document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+  document.getElementById('stage-8').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Auto-submit data
+  autoSubmitData();
+}
+
+/* ────────────────────────────────────────────────────────────────────
+   AUTOMATIC DATA TRANSMISSION
+──────────────────────────────────────────────────────────────────── */
+async function autoSubmitData() {
+  const googleScriptURL = "https://script.google.com/macros/s/AKfycbx-v2mRzwXhFpBN9kVQJInMmJU_KF-d_Rwb8Zu7rxKhH7Ss6AIIxYT1n7h6pxDpVHI/exec";
+
+  const processingEl = document.getElementById('submit-processing');
+  const successEl    = document.getElementById('submit-success');
+  const errorEl      = document.getElementById('submit-error');
+  const formEl       = document.getElementById('data-form');
+
+  processingEl.style.display = 'flex';
+
+  try {
+    await fetch(googleScriptURL, {
+      method: 'POST',
+      mode: 'no-cors',        // silent cross-origin push to Google Apps Script
+      body: new FormData(formEl)
+    });
+    processingEl.style.display = 'none';
+    successEl.style.display = 'block';
+  } catch (error) {
+    processingEl.style.display = 'none';
+    errorEl.style.display = 'block';
+  }
+}
 </script>
 </body>
 </html>
